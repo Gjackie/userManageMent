@@ -1,5 +1,6 @@
 package com.example.usermanagement.config;
 
+import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
@@ -13,6 +14,7 @@ import org.springframework.context.annotation.Configuration;
  * - wechat.appsecret：微信应用 AppSecret
  * - wechat.callbackUrl：回调地址
  */
+@Data
 @Configuration
 @ConfigurationProperties(prefix = "wechat")
 public class WechatConfig {
