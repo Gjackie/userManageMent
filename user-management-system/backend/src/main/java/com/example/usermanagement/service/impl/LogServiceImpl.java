@@ -10,6 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+/**
+ * 日志服务实现类
+ *
+ * 实现 LogService 接口，处理日志相关的业务逻辑。
+ */
 @Service
 public class LogServiceImpl implements LogService {
 

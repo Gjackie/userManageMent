@@ -121,6 +121,101 @@ Authorization: Bearer <token>
 
 ---
 
+### 3. 用户注册
+
+**请求**
+
+```
+POST /api/auth/register
+Content-Type: application/json
+```
+
+**请求参数**
+
+| 参数名 | 类型 | 必填 | 说明 |
+|--------|------|------|------|
+| username | string | 是 | 用户名 |
+| phone | string | 是 | 手机号（格式：1[3-9]开头的11位数字） |
+| password | string | 是 | 密码 |
+| confirmPassword | string | 是 | 确认密码 |
+
+**请求示例**
+
+```json
+{
+  "username": "newuser",
+  "phone": "13900139000",
+  "password": "password123",
+  "confirmPassword": "password123"
+}
+```
+
+**响应示例**
+
+```json
+{
+  "code": 200,
+  "msg": "注册成功",
+  "data": {
+    "token": "eyJhbGciOiJIUzI1NiJ9...",
+    "userId": 2,
+    "username": "newuser",
+    "phone": "13900139000"
+  }
+}
+```
+
+---
+
+### 4. 获取微信扫码登录二维码
+
+**请求**
+
+```
+GET /api/auth/wechat/qrcode
+```
+
+**响应示例**
+
+```json
+{
+  "code": 200,
+  "msg": "操作成功",
+  "data": {
+    "qrCodeUrl": "https://open.weixin.qq.com/connect/qrconnect?appid=xxx&...",
+    "state": "uuid-string"
+  }
+}
+```
+
+---
+
+### 5. 微信扫码登录回调
+
+**请求**
+
+```
+GET /api/auth/wechat/callback?code=xxx&state=xxx
+```
+
+**响应示例**
+
+```json
+{
+  "code": 200,
+  "msg": "微信登录成功",
+  "data": {
+    "success": true,
+    "token": "eyJhbGciOiJIUzI1NiJ9...",
+    "userId": 3,
+    "username": "微信用户_xxx",
+    "phone": "openid_xxx"
+  }
+}
+```
+
+---
+
 ## 用户管理 `/api/users`
 
 ### 1. 用户列表（分页）
@@ -896,7 +991,13 @@ Authorization: Bearer <token>
 
 ## 认证说明
 
-除 `/api/auth/login` 外，所有接口均需要认证。请在请求头中添加：
+以下接口无需认证即可访问：
+- `POST /api/auth/login` - 用户登录
+- `POST /api/auth/register` - 用户注册
+- `GET /api/auth/wechat/qrcode` - 获取微信登录二维码
+- `GET /api/auth/wechat/callback` - 微信登录回调
+
+其他所有接口均需要认证。请在请求头中添加：
 
 ```
 Authorization: Bearer <token>

@@ -48,3 +48,8 @@ eureka:
 logging:
   level:
     com.example.usermanagement.mapper: debug
+
+wechat:
+  appid: your_wechat_appid
+  appsecret: your_wechat_appsecret
+  callback-url: http://localhost:8080/api/auth/wechat/callback

@@ -10,6 +10,11 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * 角色服务实现类
+ *
+ * 实现 RoleService 接口，处理角色相关的业务逻辑。
+ */
 @Service
 public class RoleServiceImpl implements RoleService {
 

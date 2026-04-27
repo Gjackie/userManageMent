@@ -11,6 +11,11 @@ import org.springframework.util.StringUtils;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * 菜单服务实现类
+ *
+ * 实现 MenuService 接口，处理菜单相关的业务逻辑。
+ */
 @Service
 public class MenuServiceImpl implements MenuService {
 
