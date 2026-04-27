@@ -27,7 +27,9 @@ frontend/
 │   ├── stores/
 │   │   └── auth.js       # 认证状态管理
 │   ├── views/            # 页面组件
-│   │   ├── Login.vue     # 登录页
+│   │   ├── Login.vue     # 管理员登录页
+│   │   ├── UserAuth.vue  # 普通用户登录/注册页
+│   │   ├── UserWelcome.vue # 普通用户欢迎页
 │   │   ├── Layout.vue    # 布局组件
 │   │   ├── Dashboard.vue # 首页
 │   │   ├── User.vue      # 用户管理
@@ -80,7 +82,39 @@ npm run preview
 
 ---
 
-### 2. 布局页 (Layout)
+### 2. 普通用户认证页 (UserAuth)
+
+**路由**: `/user-auth`
+
+**功能**:
+- 用户名密码登录
+- 用户注册（用户名、手机号、密码）
+- 微信扫码登录
+- 注册/登录成功后跳转到欢迎页
+
+**访问方式**:
+- 直接访问: http://localhost:5173/user-auth
+
+---
+
+### 3. 普通用户欢迎页 (UserWelcome)
+
+**路由**: `/user-welcome`
+
+**功能**:
+- 显示用户基本信息（用户名、手机号、用户ID）
+- 功能菜单展示
+- 快捷操作按钮
+- 系统公告
+- 退出登录
+
+**访问方式**:
+- 注册或登录成功后自动跳转
+- 直接访问需已登录
+
+---
+
+### 4. 布局页 (Layout)
 
 **路由**: `/` (根布局)
 
@@ -98,7 +132,7 @@ npm run preview
 
 ---
 
-### 3. 首页 (Dashboard)
+### 5. 首页 (Dashboard)
 
 **路由**: `/dashboard`
 
@@ -110,7 +144,7 @@ npm run preview
 
 ---
 
-### 4. 用户管理 (User)
+### 6. 用户管理 (User)
 
 **路由**: `/user`
 
@@ -132,7 +166,7 @@ npm run preview
 
 ---
 
-### 5. 角色管理 (Role)
+### 7. 角色管理 (Role)
 
 **路由**: `/role`
 
@@ -153,7 +187,7 @@ npm run preview
 
 ---
 
-### 6. 菜单管理 (Menu)
+### 8. 菜单管理 (Menu)
 
 **路由**: `/menu`
 

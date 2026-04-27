@@ -1,9 +1,17 @@
 <template>
   <div class="log-container">
+    <!-- 页面标题 -->
     <h2>日志管理</h2>
 
+    <!-- 日志管理卡片 -->
     <el-card>
-      <el-table :data="tableData" border stripe style="width: 100%">
+      <!-- 日志列表表格 -->
+      <el-table
+        :data="tableData"
+        border
+        stripe
+        style="width: 100%"
+      >
         <el-table-column prop="id" label="ID" width="80" />
         <el-table-column prop="username" label="操作用户" width="120" />
         <el-table-column prop="operationType" label="操作类型" width="180" />
@@ -21,6 +29,7 @@
         <el-table-column prop="createTime" label="操作时间" width="180" />
       </el-table>
 
+      <!-- 分页组件 -->
       <el-pagination
         v-model:current-page="pagination.page"
         v-model:page-size="pagination.size"
@@ -36,17 +45,34 @@
 </template>
 
 <script setup>
+/**
+ * 日志管理组件
+ *
+ * 功能：
+ * 1. 展示操作日志列表（分页）
+ * 2. 查看操作详情
+ *
+ * 日志来源：
+ * - 后端通过 AOP 切面自动记录
+ * - 记录所有 Controller 的操作
+ */
+
 import { ref, reactive, onMounted } from 'vue'
 import { getLogList } from '../api/log'
 
+/** 表格数据 */
 const tableData = ref([])
 
+/** 分页参数 */
 const pagination = reactive({
   page: 1,
   size: 10,
   total: 0
 })
 
+/**
+ * 加载日志列表
+ */
 const loadData = async () => {
   try {
     const res = await getLogList({
@@ -62,6 +88,7 @@ const loadData = async () => {
   }
 }
 
+/** 组件挂载时加载数据 */
 onMounted(() => {
   loadData()
 })

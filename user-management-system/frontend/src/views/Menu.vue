@@ -1,13 +1,25 @@
 <template>
   <div class="menu-container">
+    <!-- 页面标题 -->
     <h2>菜单管理</h2>
 
+    <!-- 菜单管理卡片 -->
     <el-card>
+      <!-- 工具栏 -->
       <div class="toolbar">
-        <el-button type="primary" @click="handleAdd">新增菜单</el-button>
+        <el-button type="primary" @click="handleAdd">
+          新增菜单
+        </el-button>
       </div>
 
-      <el-table :data="tableData" border stripe style="width: 100%; margin-top: 20px" row-key="id">
+      <!-- 菜单列表表格 -->
+      <el-table
+        :data="tableData"
+        border
+        stripe
+        style="width: 100%; margin-top: 20px"
+        row-key="id"
+      >
         <el-table-column prop="id" label="ID" width="80" />
         <el-table-column prop="menuName" label="菜单名称" />
         <el-table-column prop="path" label="路径" />
@@ -23,13 +35,18 @@
         <el-table-column prop="sort" label="排序" width="80" />
         <el-table-column label="操作" width="200">
           <template #default="{ row }">
-            <el-button size="small" type="primary" @click="handleEdit(row)">编辑</el-button>
-            <el-button size="small" type="danger" @click="handleDelete(row)">删除</el-button>
+            <el-button size="small" type="primary" @click="handleEdit(row)">
+              编辑
+            </el-button>
+            <el-button size="small" type="danger" @click="handleDelete(row)">
+              删除
+            </el-button>
           </template>
         </el-table-column>
       </el-table>
     </el-card>
 
+    <!-- 新增/编辑菜单对话框 -->
     <el-dialog v-model="dialogVisible" :title="dialogTitle" width="500px">
       <el-form :model="form" :rules="rules" ref="formRef" label-width="80px">
         <el-form-item label="菜单名称" prop="menuName">
@@ -67,15 +84,38 @@
 </template>
 
 <script setup>
+/**
+ * 菜单管理组件
+ *
+ * 功能：
+ * 1. 展示菜单列表
+ * 2. 新增菜单
+ * 3. 编辑菜单
+ * 4. 删除菜单
+ *
+ * 菜单类型：
+ * - 0：目录
+ * - 1：菜单
+ * - 2：按钮
+ */
+
 import { ref, reactive, onMounted } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { getMenuList, createMenu, updateMenu, deleteMenu } from '../api/menu'
 
+/** 表格数据 */
 const tableData = ref([])
+
+/** 对话框显示状态 */
 const dialogVisible = ref(false)
+
+/** 对话框标题 */
 const dialogTitle = ref('新增菜单')
+
+/** 表单引用 */
 const formRef = ref(null)
 
+/** 表单数据 */
 const form = reactive({
   id: null,
   parentId: 0,
@@ -87,11 +127,13 @@ const form = reactive({
   sort: 0
 })
 
+/** 表单验证规则 */
 const rules = {
   menuName: [{ required: true, message: '请输入菜单名称', trigger: 'blur' }],
   type: [{ required: true, message: '请选择类型', trigger: 'change' }]
 }
 
+/** 加载菜单列表 */
 const loadData = async () => {
   try {
     const res = await getMenuList()
@@ -103,6 +145,7 @@ const loadData = async () => {
   }
 }
 
+/** 点击新增按钮 */
 const handleAdd = () => {
   form.id = null
   form.parentId = 0
@@ -116,12 +159,14 @@ const handleAdd = () => {
   dialogVisible.value = true
 }
 
+/** 点击编辑按钮 */
 const handleEdit = (row) => {
   Object.assign(form, row)
   dialogTitle.value = '编辑菜单'
   dialogVisible.value = true
 }
 
+/** 点击删除按钮 */
 const handleDelete = async (row) => {
   try {
     await ElMessageBox.confirm('确定删除该菜单吗？', '提示', { type: 'warning' })
@@ -135,6 +180,7 @@ const handleDelete = async (row) => {
   }
 }
 
+/** 提交表单 */
 const handleSubmit = async () => {
   const valid = await formRef.value.validate().catch(() => false)
   if (!valid) return
@@ -154,6 +200,7 @@ const handleSubmit = async () => {
   }
 }
 
+/** 组件挂载时加载数据 */
 onMounted(() => {
   loadData()
 })
